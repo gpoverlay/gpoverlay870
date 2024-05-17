@@ -20,11 +20,11 @@ else
 	# Update these between major releases.
 	TEST_TARBALL_VERSION="$(ver_cut 1-2).0"
 	# SRC_URI+=" test? ( https://dev.gentoo.org/~sam/distfiles/${CATEGORY}/${PN}/${PN}-${TEST_TARBALL_VERSION}-tests.tar.xz )"
-	KEYWORDS="~amd64 ~arm ~arm64"
+	KEYWORDS="amd64 ~arm ~arm64"
 fi
 
-SLOT="${PV%.*}"
 LICENSE="|| ( GPL-3 BL )"
+SLOT="${PV%.*}"
 IUSE="+bullet +dds +fluid +openexr +tbb
 	alembic collada +color-management cuda +cycles cycles-bin-kernels
 	debug doc +embree +ffmpeg +fftw +gmp jack jemalloc jpeg2k
@@ -89,7 +89,7 @@ RDEPEND="${PYTHON_DEPS}
 	openpgl? ( media-libs/openpgl:0/0.5 )
 	opensubdiv? ( >=media-libs/opensubdiv-3.4.0 )
 	openvdb? (
-		>=media-gfx/openvdb-9.0.0:=[nanovdb?]
+		<media-gfx/openvdb-11.0.0:=[nanovdb?]
 		dev-libs/c-blosc:=
 	)
 	optix? ( <dev-libs/optix-7.5.0 )
@@ -222,6 +222,11 @@ src_prepare() {
 }
 
 src_configure() {
+	# -Werror=odr, -Werror=lto-type-mismatch
+	# https://bugs.gentoo.org/859607
+	# https://projects.blender.org/blender/blender/issues/120444
+	filter-lto
+
 	# Workaround for bug #922600
 	append-ldflags $(test-flags-CCLD -Wl,--undefined-version)
 

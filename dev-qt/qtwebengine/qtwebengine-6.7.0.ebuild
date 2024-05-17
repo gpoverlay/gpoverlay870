@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} )
 PYTHON_REQ_USE="xml(+)"
 inherit check-reqs flag-o-matic multiprocessing optfeature
 inherit prefix python-any-r1 qt6-build toolchain-funcs
@@ -14,7 +14,7 @@ SRC_URI+="
 "
 
 if [[ ${QT6_BUILD_TYPE} == release ]]; then
-	KEYWORDS="~amd64 ~arm64"
+	KEYWORDS="amd64 arm64"
 fi
 
 IUSE="
@@ -37,6 +37,7 @@ RDEPEND="
 	dev-libs/nspr
 	dev-libs/nss
 	~dev-qt/qtbase-${PV}:6[accessibility=,gui,opengl=,vulkan?,widgets?]
+	~dev-qt/qtdeclarative-${PV}:6[widgets?]
 	~dev-qt/qtwebchannel-${PV}:6[qml?]
 	media-libs/fontconfig
 	media-libs/freetype
@@ -45,6 +46,7 @@ RDEPEND="
 	media-libs/libjpeg-turbo:=
 	media-libs/libpng:=
 	media-libs/libwebp:=
+	media-libs/mesa[gbm(+)]
 	media-libs/openjpeg:2=
 	media-libs/opus
 	media-libs/tiff:=
@@ -60,6 +62,7 @@ RDEPEND="
 	x11-libs/libXfixes
 	x11-libs/libXrandr
 	x11-libs/libXtst
+	x11-libs/libdrm
 	x11-libs/libxcb:=
 	x11-libs/libxkbcommon
 	x11-libs/libxkbfile
@@ -68,21 +71,13 @@ RDEPEND="
 	geolocation? ( ~dev-qt/qtpositioning-${PV}:6 )
 	kerberos? ( virtual/krb5 )
 	pulseaudio? ( media-libs/libpulse[glib] )
-	qml? ( ~dev-qt/qtdeclarative-${PV}:6 )
 	screencast? (
 		dev-libs/glib:2
-		media-libs/mesa[gbm(+)]
 		media-video/pipewire:=
-		x11-libs/libdrm
 	)
 	system-icu? ( dev-libs/icu:= )
-	vaapi? (
-		media-libs/libva:=[X]
-		media-libs/mesa[gbm(+)]
-		x11-libs/libdrm
-	)
+	vaapi? ( media-libs/libva:=[X] )
 	!vaapi? ( media-libs/libvpx:= )
-	widgets? ( ~dev-qt/qtdeclarative-${PV}:6[widgets] )
 "
 DEPEND="
 	${RDEPEND}
@@ -113,6 +108,8 @@ PATCHES=( "${WORKDIR}"/patches/${PN} )
 PATCHES+=(
 	# add extras as needed here, may merge in set if carries across versions
 	"${FILESDIR}"/${PN}-6.7.0-clang18.patch
+	"${FILESDIR}"/${PN}-6.7.0-ninja1.12.patch
+	"${FILESDIR}"/${PN}-6.7.0-displaykey-header.patch
 )
 
 python_check_deps() {
@@ -243,6 +240,14 @@ src_configure() {
 		# report if above -march works again so can cleanup.
 		use arm64 && tc-is-gcc && filter-flags '-march=*' '-mcpu=*'
 	fi
+
+	# Workaround for build failure with clang-18 and -march=native without
+	# avx512. Does not affect e.g. -march=skylake, only native (bug #931623).
+	# TODO: try to drop this when <=clang-18.1.5 >=18 been gone for some time
+	use amd64 && tc-is-clang && is-flagq -march=native &&
+		[[ $(clang-major-version) -ge 18 ]] &&
+		tc-cpp-is-true "!defined(__AVX512F__)" ${CXXFLAGS} &&
+		append-flags -mevex512
 
 	export NINJA NINJAFLAGS=$(get_NINJAOPTS)
 	[[ ${NINJA_VERBOSE^^} == OFF ]] || NINJAFLAGS+=" -v"

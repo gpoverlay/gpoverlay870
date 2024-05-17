@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( pypy3 python3_{10..12} )
+PYTHON_COMPAT=( pypy3 python3_{10..13} )
 
 inherit distutils-r1 optfeature
 
@@ -21,7 +21,7 @@ SRC_URI="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 
 RDEPEND="
 	<dev-python/anyio-5[${PYTHON_USEDEP}]
@@ -35,14 +35,34 @@ BDEPEND="
 	test? (
 		dev-python/pytest-asyncio[${PYTHON_USEDEP}]
 		dev-python/pytest-httpbin[${PYTHON_USEDEP}]
-		dev-python/pytest-trio[${PYTHON_USEDEP}]
 		dev-python/socksio[${PYTHON_USEDEP}]
-		dev-python/trio[${PYTHON_USEDEP}]
 		dev-python/trustme[${PYTHON_USEDEP}]
+		$(python_gen_cond_dep '
+			dev-python/pytest-trio[${PYTHON_USEDEP}]
+			dev-python/trio[${PYTHON_USEDEP}]
+		' 3.{10..12})
 	)
 "
 
 distutils_enable_tests pytest
+
+python_test() {
+	local opts=()
+	local EPYTEST_IGNORE=()
+
+	if ! has_version "dev-python/trio[${PYTHON_USEDEP}]"; then
+		opts+=( -k "not trio" )
+		EPYTEST_IGNORE+=(
+			tests/_async/test_connection_pool.py
+		)
+	fi
+
+	if ! has_version "dev-python/pytest-trio[${PYTHON_USEDEP}]"; then
+		opts+=( -m "not trio" -o addopts= )
+	fi
+
+	epytest "${opts[@]}"
+}
 
 pkg_postinst() {
 	optfeature "SOCKS support" dev-python/socksio
