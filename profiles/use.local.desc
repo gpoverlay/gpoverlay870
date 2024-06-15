@@ -752,9 +752,6 @@ app-forensics/aide:curl - Use curl for http,https and ftp backends
 app-forensics/aide:e2fs - Enable support for checking file attributes on ext2/ext3/ext4 filesystems
 app-forensics/chkrootkit:cron - Install cron script for weekly rootkit scans
 app-forensics/honggfuzz:clang - Enable clang support (pull sys-libs/blocksruntime dependency).
-app-forensics/libewf:bfio - Enables libbfio for chaining file in file handling
-app-forensics/libewf:fuse - Enable fuse support for ewfmount
-app-forensics/libewf:uuid - Enable UUID support in the ewftools
 app-forensics/lynis:cron - Install /etc/cron.* files
 app-forensics/sleuthkit:aff - Enable extra aff formats
 app-forensics/sleuthkit:ewf - Enable libewf support
@@ -988,8 +985,6 @@ app-misc/rlwrap:debug - Enable debug
 app-misc/screen:multiuser - Enable multiuser support (by setting correct permissions)
 app-misc/screen:nethack - Express error messages in nethack style
 app-misc/screenfetch:X - Use the media-gfx/scrot package to take screenshots
-app-misc/skim:tmux - Install sk-tmux script to run skim in a tmux pane
-app-misc/skim:vim - Install vim plugin for skim
 app-misc/sphinx:id64 - use 64-bit document and word IDs
 app-misc/sphinx:mariadb - Add mariadb database support
 app-misc/sphinx:stemmer - Enable language stemming support
@@ -1131,6 +1126,7 @@ app-shells/bash-completion:eselect - Support blacklisting of completions via 'es
 app-shells/mksh:lksh - variant that uses POSIX-compliant arithmetics with the host “long” data type and is automatically in POSIX mode when called as /bin/sh
 app-shells/nushell:dataframe - Dataframe feature for nushell
 app-shells/nushell:extra - Enable less stable or less common commands
+app-shells/nushell:plugins - Build official plugins
 app-shells/pdsh:rsh - This allows the use of rsh (remote shell) and rcp (remote copy) for authoring websites. sftp is a much more secure protocol and is preferred.
 app-shells/shish:diet - Use dev-libs/dietlibc
 app-text/atril:caja - Enable property page extension in mate-base/caja
@@ -1252,7 +1248,7 @@ app-text/texlive:extra - Add support for extra TeXLive packages
 app-text/texlive:games - Add typesetting support for games (chess, etc.) (dev-texlive/texlive-games)
 app-text/texlive:graphics - Add support for several graphics packages (pgf, tikz,...)
 app-text/texlive:humanities - Add LaTeX support for the humanities (dev-texlive/texlive-humanities)
-app-text/texlive:luatex - Add extra support for luatex
+app-text/texlive:luatex - Install TeX Live packages that require luatex
 app-text/texlive:metapost - Add support for metapost: A tool for creating graphics in scalable PostScript
 app-text/texlive:music - Add support for music typesetting (dev-texlive/texlive-music)
 app-text/texlive:pdfannotextractor - Add dev-tex/pdfannotextractor support, for extracting annotations from PDF files
@@ -1764,6 +1760,7 @@ dev-java/pdfbox:tools - Build and install pdfbox-tools
 dev-java/protobuf-java:system-protoc - Use protoc provided by dev-libs/protobuf
 dev-java/qdox:ant-task - Build the ant-task
 dev-java/rxtx:lfd - Installs and uses LockFileServer daemon (lfd)
+dev-java/saxon:ant-task - BUILD and register the ant-task
 dev-java/sbt:binary - Install from (Gentoo-compiled) binary instead of building from sources. Set this when you run out of memory during build.
 dev-lang/algol68g:mpfr - Add support for multiprecision floating point rouding
 dev-lang/ammonite-repl-bin:scala2-13 - Install Ammonite for Scala 2.13
@@ -1827,7 +1824,6 @@ dev-lang/logtalk:fop - Support for generating pdf documentation using fop
 dev-lang/logtalk:xslt - Support for generating html documentation using xslt
 dev-lang/lua:deprecated - make deprecated data structures/routines available
 dev-lang/luajit:lua52compat - Enable some upwards-compatible features from Lua 5.2 that are unlikely to break existing code.
-dev-lang/mercury:erlang - Support Mercury Erlang grade
 dev-lang/mercury:trail - Support Mercury trail grades
 dev-lang/mercury-extras:tommath - Enable support for tommath library
 dev-lang/mlton:binary - install a binary version
@@ -2286,6 +2282,7 @@ dev-lisp/clisp:svm - Build CLISP with support for the Support Vector Machine mod
 dev-lisp/clx:doc - Builds documentation
 dev-lisp/cmucl:X - Build CLX, CLM, or Hemlock
 dev-lisp/cmucl:doc - Installs package documentation
+dev-lisp/cmucl:gui - Build CLX, CLM, or Hemlock
 dev-lisp/cmucl:source - Include source code for CMUCL in installation
 dev-lisp/ecl:gengc - Use generational garbage collection (experimental)
 dev-lisp/ecl:precisegc - Use type information during garbage collection (experimental)
@@ -2573,7 +2570,7 @@ dev-python/python-mpd2:twisted - Enable twisted support
 dev-python/python-stdnum:vies - Enable VIES
 dev-python/pyudev:qt5 - Install PyQt5 bindings
 dev-python/pyzmq:drafts - Enable draft API support
-dev-python/qiskit-terra:visualization - Enable visualization modules
+dev-python/qiskit:visualization - Enable visualization modules
 dev-python/rarfile:compressed - Enables the module to support compressed v3 archives by calling the app-arch/unrar.
 dev-python/reedsolo:native-extensions - Compile native C extensions.
 dev-python/rfc3986:idna - enable support for the IDNA specification (RFC 5891)
@@ -2694,6 +2691,7 @@ dev-qt/qtbase:tslib - Enable support for touchscreen devices via x11-libs/tslib
 dev-qt/qtbase:widgets - Build Qt6Widgets module
 dev-qt/qtbluetooth:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtcharts:qml - Build QML/QtQuick bindings and imports
+dev-qt/qtconnectivity:neard - Use net-wireless/neard to access NFC devices
 dev-qt/qtconnectivity:nfc - Enable support for the Near Field Communication protocol
 dev-qt/qtcore:old-kernel - Disable syscalls not available on Linux kernels older than 4.11
 dev-qt/qtdatavis3d:qml - Build QML/QtQuick bindings and imports
@@ -2743,12 +2741,14 @@ dev-qt/qttools:pixeltool - Build Qt Pixeltool
 dev-qt/qttools:qdbus - Build the Qt D-Bus Interface (D-Bus Viewer requires USE=widgets)
 dev-qt/qttools:qdoc - Build Qt Documentation Generator
 dev-qt/qttools:qml - Build QML/QtQuick bindings and imports
+dev-qt/qttools:qmlls - Build the QtHelp plugin for the QML language server
 dev-qt/qttools:qtattributionsscanner - Build Qt Source Code Attribution Scanner
 dev-qt/qttools:qtdiag - Build Qt Diag
 dev-qt/qttools:qtplugininfo - Build Qt Plugin Info
 dev-qt/qttools:widgets - Enable QtWidgets support
 dev-qt/qtvirtualkeyboard:handwriting - Adds handwriting recognition integration support
 dev-qt/qtwayland:compositor - Enable support for the wayland compositor / server APIs
+dev-qt/qtwayland:gnome - Build the GNOME-like decoration plugin (loaded by default with GNOME)
 dev-qt/qtwayland:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtwayland:vulkan - Enable support for Vulkan-based server buffer integration
 dev-qt/qtwebchannel:qml - Build QML/QtQuick bindings and imports
@@ -2833,7 +2833,6 @@ dev-tex/abntex:lyx - Install with app-office/lyx layout
 dev-tex/biblatex:biber - Install the unicode compatible backend processor
 dev-tex/pythontex:highlighting - Syntax highlighting using dev-python/pygments
 dev-texlive/texlive-basic:luajittex - Add support for LuaJitTeX: LuaTeX based on LuaJIT which is usually faster.
-dev-texlive/texlive-context:luajittex - Add support for LuaJitTeX: LuaTeX based on LuaJIT which is usually faster.
 dev-util/Tensile:client - Build and install tensile_client executable to run benchmarks and tune GPU GEMM
 dev-util/babeltrace:elfutils - Build the dev-util/lttng-ust debug information filter component class
 dev-util/babeltrace:plugins - Build support for Babeltrace 2 Python plugins
@@ -2954,6 +2953,7 @@ dev-util/ostree:sodium - Use libsodium for ed25519
 dev-util/ostree:soup - Use libsoup for networking
 dev-util/perf:babeltrace - Enable dev-util/babeltrace support
 dev-util/perf:bpf - Enable support for eBPF features with dev-libs/libbpf
+dev-util/perf:capstone - Use dev-libs/capstone for disassembly support
 dev-util/perf:clang - Enable builtin clang and LLVM support
 dev-util/perf:doc - Build documentation and man pages. With this USE flag disabled, the --help parameter for perf and its sub-tools will not be available. This is optional because it depends on a few documentation handling tools that are not always welcome on user systems.
 dev-util/perf:libpfm - Enable dev-libs/libpfm support
@@ -2985,7 +2985,6 @@ dev-util/schroot:zfs - Enable support for chroots using ZFS shapshots/clones
 dev-util/sdl-jstest:sdl - Enable media-libs/libsdl2 based input test
 dev-util/sdl-jstest:sdl1 - Enable media-libs/libsdl based input test
 dev-util/sysprof:unwind - Use sys-libs/libunwind to unwind the stack
-dev-util/trace-cmd:udis86 - Enable support for dev-libs/udis86 disassembler library
 dev-util/uftrace:capstone - Use capstone to provide dynamic tracing without recompilation
 dev-util/vulkan-tools:cube - Build the cube/cubepp demos
 dev-util/watchman:python - Install pywatchman bindings and the watchman-{wait,make} utils
@@ -3499,10 +3498,7 @@ gui-wm/sway:swaynag - Install 'swaynag': shows a message with buttons
 gui-wm/sway:tray - Enable support for StatusNotifierItem tray specification
 gui-wm/sway:wallpapers - Install sway's default wallpaper image
 gui-wm/wayfire:X - Enable support for X11 applications (XWayland).
-gui-wm/wayfire:gles - use libglvnd to do animations more efficiently
 gui-wm/wayfire:gles3 - Enable OpenGL ES 3.x Features.
-gui-wm/wayfire:system-wfconfig - Use the system-wide gui-libs/wf-config instead of building as a submodule. It will block system-wide gui-libs/wf-config from being installed.
-gui-wm/wayfire:system-wlroots - Use the system-wide gui-libs/wlroots instead of building as a submodule. It will block system-wide gui-libs/wlroots from being installed.
 kde-apps/akonadi:designer - Install plugin for dev-qt/designer
 kde-apps/akonadi:kaccounts - Enable support for system-wide defined KAccounts
 kde-apps/akonadi:tools - Install tools for developers and testing
@@ -3768,9 +3764,9 @@ lxqt-base/lxqt-meta:admin - Install lxqt-base/lxqt-admin
 lxqt-base/lxqt-meta:archiver - Install app-arch/lxqt-archiver
 lxqt-base/lxqt-meta:desktop-portal - Enable the LXQt sys-apps/xdg-desktop-portal backend implementation
 lxqt-base/lxqt-meta:display-manager - Install a graphical display manager
-lxqt-base/lxqt-meta:filemanager - Install x11-misc/pcmanfm-qtfile manager
-lxqt-base/lxqt-meta:lximage - Install media-gfx/lximage-qtimage viewer
-lxqt-base/lxqt-meta:minimal - Do not install x11-wm/openboxwindow manager
+lxqt-base/lxqt-meta:filemanager - Install x11-misc/pcmanfm-qt file manager
+lxqt-base/lxqt-meta:lximage - Install media-gfx/lximage-qt image viewer
+lxqt-base/lxqt-meta:minimal - Do not install x11-wm/openbox window manager
 lxqt-base/lxqt-meta:nls - Install dev-qt/qttranslations to better support different locales
 lxqt-base/lxqt-meta:powermanagement - Install lxqt-base/lxqt-powermanagement package
 lxqt-base/lxqt-meta:processviewer - Install x11-misc/qps package
@@ -3780,6 +3776,7 @@ lxqt-base/lxqt-meta:ssh-askpass - Install lxqt-base/lxqt-openssh-askpass user pa
 lxqt-base/lxqt-meta:sudo - Install lxqt-base/lxqt-sudo
 lxqt-base/lxqt-meta:terminal - Install x11-terms/qterminal package
 lxqt-base/lxqt-meta:trash - Install gnome-base/gvfs to enable 'trash' functionality in x11-misc/pcmanfm-qt
+lxqt-base/lxqt-meta:window-manager - Install kde-plasma/kwin window manager
 lxqt-base/lxqt-panel:colorpicker - Build colorpicker plugin
 lxqt-base/lxqt-panel:cpuload - Build cpuload plugin
 lxqt-base/lxqt-panel:desktopswitch - Build desktopswitch plugin
@@ -4340,7 +4337,8 @@ media-libs/libheif:gdk-pixbuf - Enable x11-libs/gdk-pixbuf plugin
 media-libs/libheif:go - Enable building dev-lang/go code/examples
 media-libs/libheif:rav1e - Use media-video/rav1e for AVIF encoding
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
-media-libs/libjxl:gdk-pixbuf - Build a gdk-pixbuf loader
+media-libs/libjxl:gdk-pixbuf - Build a gdk-pixbuf loader.
+media-libs/libjxl:jpeg - Enable full support for JPEG images. When disabled, only lossless conversion between JPEG and JPEG-XL is supported.
 media-libs/liblastfm:fingerprint - Build the lastfm-fingerprint library
 media-libs/libmp4v2:utils - Install command-line utilities
 media-libs/libmypaint:gegl - Add support for media-libs/gegl
@@ -4466,7 +4464,6 @@ media-libs/openimageio:gui - Build iv (with Qt5)
 media-libs/openimageio:opencv - Enable OpenCV support via media-libs/opencv
 media-libs/openimageio:openvdb - Enable OpenVDB support via media-gfx/openvdb
 media-libs/openimageio:ptex - Enable Ptex texture mapping system file support via media-libs/ptex
-media-libs/openimageio:qt5 - Build iv with Qt5
 media-libs/openimageio:qt6 - Build iv with Qt6
 media-libs/openimageio:tools - Build the command-line tools
 media-libs/opensubdiv:glew - Enable support for OpenGL Extension Wrangler Library (media-libs/glew)
@@ -4752,7 +4749,6 @@ media-sound/klick:rubberband - Enable rubberband support
 media-sound/lame:frontend - Build and install the 'lame' executable frontend to lame libraries.
 media-sound/lame:mp3rtp - Build the mp3-to-RTP streaming utility. **UNSUPPORTED**
 media-sound/liblc3:tools - Enable extra tools
-media-sound/lilypond:guile2 - Enable experimental support for Guile 2
 media-sound/linux-show-player:midi - Allow cues to send, or trigger on, MIDI messages
 media-sound/linux-show-player:timecode - Support the sending of time code of running audio files over ArtNet, for instance to trigger cues in lighting-control software on lighting desks
 media-sound/linuxsampler:lv2 - Add support for Ladspa V2
@@ -5004,12 +5000,8 @@ media-tv/mythtv:vpx - Enable VP8/VP9 support for media-libs/libvpx
 media-tv/mythtv:wrapper - Use Ubuntu mythtfrontend wrapper
 media-tv/mythtv:x265 - Enable h265 encoding using x265
 media-tv/mythtv:xmltv - Support media-tv/xmltv TV listing - not used by Schedules Direct]
-media-tv/tvheadend:capmt - Enable support for capmt (dvbapi) protocol
-media-tv/tvheadend:constcw - Enable support for the constcw protocol
-media-tv/tvheadend:cwc - Enable support for the cwc (newcamd) protocol
 media-tv/tvheadend:ddci - Enable support for DDCI hardware
 media-tv/tvheadend:dvbcsa - Enable decryption of the DVB Common Scrambling Algorithm
-media-tv/tvheadend:dvben50221 - Enable support for hardware CAM
 media-tv/tvheadend:hdhomerun - Enable support for the HDHomeRun device
 media-tv/tvheadend:imagecache - Enable support for image caching
 media-tv/tvheadend:iptv - Enable support for Internet Protocol TV
@@ -5189,10 +5181,8 @@ media-video/mpv:drm - Enable Kernel Mode Setting / Direct Rendering Manager base
 media-video/mpv:gamepad - Enable gamepad input support
 media-video/mpv:libmpv - Enable the shared library and headers (used by frontends / plugins)
 media-video/mpv:lua - Enable Lua scripting, OSC (On Screen Controller) GUI, and net-misc/yt-dlp support
-media-video/mpv:mmal - Enable Multi-Media Abstraction Layer (MMAL) decoding support: Available e.g. on the Raspberry Pi
 media-video/mpv:opengl - Enable support for OpenGL-based video backends (Note: deprecated for X11, USE=egl provides the newer support for -gpu-api=opengl)
 media-video/mpv:pipewire - Enable sound support via native PipeWire backend
-media-video/mpv:raspberry-pi - Enable support for the Raspberry Pi
 media-video/mpv:rubberband - Enable high quality pitch correction via media-libs/rubberband
 media-video/mpv:sdl - Enable media-libs/libsdl2 based video and audio outputs (Note: these outputs exist for compatibility reasons only, avoid if possible)
 media-video/mpv:sixel - Enable support for the sixel video backend using media-libs/libsixel
@@ -5674,16 +5664,24 @@ net-dns/knot:xdp - Enable eXpress Data Path
 net-dns/knot-resolver:dnstap - Build dnstap binary logging module
 net-dns/knot-resolver:kresc - Build (experimental) command-line client
 net-dns/knot-resolver:nghttp2 - DNS-over-HTTPS support
-net-dns/mydns:alias - Enable David Phillips aliasing
-net-dns/mydns:status - Enable the STATUS opcode to check server status
-net-dns/nsd:bind8-stats - Enables BIND8 like NSTATS and XSTATS
+net-dns/nsd:bind8-stats - Enables BIND8 like NSTATS and XSTATS and statistics in nsd-control
+net-dns/nsd:default-znow - Enable full relocation binding at load-time (RELRO NOW, to protect GOT and .dtor areas)
 net-dns/nsd:dnstap - Enable the structured binary log format
+net-dns/nsd:ipv6 - Enable IPv6 support
+net-dns/nsd:largefile - Enables support for large files
 net-dns/nsd:libevent - Use libevent or libev, useful when zone count is high
+net-dns/nsd:memclean - Cleanup memory (at exit) for eg. valgrind, memcheck
 net-dns/nsd:minimal-responses - If minimal responses are disabled, responses are more likely to get truncated, resulting in TCP fallback
-net-dns/nsd:munin - Install a plugin for net-analyzer/munin to graph statistical data from nsd.
+net-dns/nsd:mmap - Use mmap(2) instead of malloc(3); currently experimental
+net-dns/nsd:munin - Install a plugin for net-analyzer/munin to graph statistical data from nsd
 net-dns/nsd:nsec3 - Enable NSEC3 support
+net-dns/nsd:packed - Enable packed structure alignment; uses less memory but has unaligned reads
+net-dns/nsd:radix-tree - Use a radix tree for main lookups instead of a red-black tree
 net-dns/nsd:ratelimit - Enables ratelimiting, based on query name, type and source
-net-dns/nsd:root-server - Configure NSD as a root server
+net-dns/nsd:recvmmsg - Enable recvmmsg and sendmmsg compilation, faster but some kernel versions may have implementation problems for IPv6
+net-dns/nsd:root-server - Configure NSD as a root server (OBSOLETE: removed in >=4.9.x)
+net-dns/nsd:tfo - Enable TCP Fast Open
+net-dns/nsd:year2038 - Support timestamps after 2038 (glibc only!)
 net-dns/opendnssec:external-hsm - Enables support for storing DNSSEC keys through an arbitrary non-portage PKCS#11 interface, specified through an environment variable
 net-dns/opendnssec:opensc - Enables support for storing DNSSEC keys through a dev-libs/opensc PKCS#11 interface
 net-dns/opendnssec:signer - Enables signing capabilities for OpenDNSSEC
@@ -6565,12 +6563,22 @@ net-misc/nextcloud-client:webengine - Enable old Flow1 login using dev-qt/qtwebe
 net-misc/ntp:openntpd - Allow ntp to be installed alongside openntpd
 net-misc/ntp:parse-clocks - Add support for PARSE clocks
 net-misc/ntp:samba - Provide support for Samba's signing daemon (needed for Active Directory domain controllers)
+net-misc/ntpsec:arbiter - Arbiter 1088A/B GPS driver
 net-misc/ntpsec:early - Drop root privileges early
 net-misc/ntpsec:gdb - Enable debugging with gdb
+net-misc/ntpsec:generic - Enable support for generic time radios and GPSDOs
+net-misc/ntpsec:gpsd - Enable gpsd daemon support
 net-misc/ntpsec:heat - Install contrib heat generating scripts
+net-misc/ntpsec:hpgps - Hewlett Packard GPS driver
+net-misc/ntpsec:jjy - JJY driver
 net-misc/ntpsec:libbsd - Use libbsd instead of internal funcs
+net-misc/ntpsec:local - Support for undisciplined local clock (not recommended)
+net-misc/ntpsec:modem - NIST/USNO/PTB Modem Time Services
 net-misc/ntpsec:nist - Set local clock deps
+net-misc/ntpsec:nmea - NMEA GPS driver
 net-misc/ntpsec:ntpviz - Make visualizations of offsets, jiffies, etc.
+net-misc/ntpsec:oncore - Oncore driver
+net-misc/ntpsec:pps - PPS cesium clock driver
 net-misc/ntpsec:rclock_arbiter - Arbiter 1088A/B GPS driver
 net-misc/ntpsec:rclock_generic - Enable support for generic time radios and GPSDOs
 net-misc/ntpsec:rclock_gpsd - Enable gpsd daemon support
@@ -6586,7 +6594,12 @@ net-misc/ntpsec:rclock_spectracom - Spectracom driver
 net-misc/ntpsec:rclock_trimble - Trimble driver
 net-misc/ntpsec:rclock_truetime - Trutime driver (deprecated)
 net-misc/ntpsec:rclock_zyfer - Zyfer driver
+net-misc/ntpsec:shm - Obtain refclock info from shared memory-segment
 net-misc/ntpsec:smear - Specify the interval over which a leap second is applied (experimental)
+net-misc/ntpsec:spectracom - Spectracom driver
+net-misc/ntpsec:trimble - Trimble driver
+net-misc/ntpsec:truetime - Trutime driver (deprecated)
+net-misc/ntpsec:zyfer - Zyfer driver
 net-misc/ofono:atmodem - ETSI AT modem support.
 net-misc/ofono:bluetooth - Enable Bluetooth modem support using net-wireless/bluez.
 net-misc/ofono:cdmamodem - Enable CDMA modem support.
@@ -6822,7 +6835,6 @@ net-p2p/retroshare:sqlcipher - Enables GXS database encryption via SQLCipher
 net-p2p/syncthing:tools - Install stdiscosrv, strelaysrv and other tools to /usr/libexec/syncthing/.
 net-p2p/transmission:cli - Build command-line client
 net-p2p/transmission:debug - Enable assertions
-net-p2p/transmission:lightweight - Optimize transmission for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)
 net-p2p/transmission:mbedtls - Use mbed TLS instead of OpenSSL
 net-p2p/transmission-remote-gtk:libproxy - Use net-libs/libproxy for getting the HTTP/HTTPS/SOCKS proxy configuration.
 net-print/cups:openssl - Use dev-libs/openssl instead of net-libs/gnutls for TLS support
@@ -7403,8 +7415,6 @@ sci-libs/libccd:double-precision - More precise calculations at the expense of s
 sci-libs/libgeodecomp:hpx - Enables HPX backend
 sci-libs/libgeodecomp:opencv - Enables OpenCV related code
 sci-libs/libgeodecomp:silo - Enables SILO related code
-sci-libs/libghemical:mopac7 - Use sci-chemistry/mopac7 for semi-empirical calculations
-sci-libs/libghemical:mpqc - Use sci-chemistry/mpqc for quantum-mechanical calculations
 sci-libs/liborigin:tools - Install opj2dat command line util
 sci-libs/libqalculate:hardened - Disable unsafe functions like 'command' and variables like 'uptime'.
 sci-libs/libsc:romio - Build with support for the ROMIO MPI-IO component
@@ -8039,7 +8049,6 @@ sys-auth/seatd:builtin - Enable embedded server in libseat
 sys-auth/seatd:server - Enable standalone seatd server, replacement to (e)logind
 sys-auth/ssh-ldap-pubkey:schema - Install a copy of the LPK schema, only needed on LDAP servers.
 sys-auth/sssd:acl - Build and use the cifsidmap plugin
-sys-auth/sssd:keyutils - Controls whether the kernel keyring should be used via sys-apps/keyutils
 sys-auth/sssd:netlink - Add support for netlink protocol via dev-libs/libnl
 sys-auth/sssd:nfsv4 - Add support for the nfsv4 idmapd plugin provided by net-fs/nfs-utils
 sys-auth/sssd:samba - Add Privileged Attribute Certificate Support for Kerberos
@@ -8340,6 +8349,7 @@ sys-fs/dmraid:intel-led - Enable Intel LED support
 sys-fs/dmraid:led - Enable LED support
 sys-fs/dmraid:mini - Create a minimal binary suitable for early boot environments
 sys-fs/dosfstools:compat - Install symlinks for legacy names of the tools
+sys-fs/e2fsprogs:archive - Add support for mke2fs to read a tarball as input. This allows not needing privileges. Needs app-arch/libarchive.
 sys-fs/e2fsprogs:cron - Install e2scrub_all cron script
 sys-fs/e2fsprogs:fuse - Build fuse2fs, a FUSE file system client for ext2/ext3/ext4 file systems
 sys-fs/e2fsprogs:tools - Build extfs tools (mke2fs, e2fsck, tune2fs, etc.)
@@ -8597,6 +8607,7 @@ www-apps/cgit:highlight - Enable source code highlighting
 www-apps/cgit:lua - Enable support for Lua scripting
 www-apps/drupal:uploadprogress - Install dev-php/pecl-uploadprogress package
 www-apps/gitea:acct - User and group management via acct-*/git packages
+www-apps/gitea:gogit - (EXPERIMENTAL) Use go-git variants of Git commands.
 www-apps/hugo:extended - Enable SASS/SCSS and WebP encoding support
 www-apps/icingaweb2:apache2-server - Adds support for the apache2-server
 www-apps/icingaweb2:fpm - Adds FPM support to php
@@ -8640,6 +8651,9 @@ www-client/chromium:system-png - Use system media-libs/libpng instead of the bun
 www-client/chromium:system-toolchain - Use system toolchain instead of the bundled one (if possible)
 www-client/chromium:system-zstd - Use system app-arch/zstd instead of the bundled one.
 www-client/chromium:widevine - Unsupported closed-source DRM capability (required by Netflix VOD)
+www-client/dillo:mbedtls - Build against the net-libs/mbedtls library for TLS support.
+www-client/dillo:openssl - Build against the dev-libs/openssl library for TLS support.
+www-client/dillo:xembed - Enable XEmbed protocol support
 www-client/elinks:bittorrent - Enable support for the BitTorrent protocol
 www-client/elinks:finger - Enable support for the finger protocol
 www-client/elinks:gopher - Enable support for the gopher protocol
@@ -8778,7 +8792,6 @@ www-servers/tomcat:extra-webapps - Build also the docs and examples webapp
 www-servers/uwsgi:embedded - Embed plugins instead of building them as real plugins. When disabling this USE flag make sure you specify all used plugins in your uWSGI configuration. Note: Language plugins will always be built as real plugins.
 www-servers/uwsgi:go - Build the gccgo plugin to run Go applications.
 www-servers/uwsgi:json - Support json as a configuration file format.
-www-servers/uwsgi:python-asyncio - Use the EXPERIMENTAL asyncio (tulip) for python3.4 async request dispatching and as LoopEngine (see http://uwsgi-docs.readthedocs.org/en/latest/asyncio.html).
 www-servers/uwsgi:routing - Enable routing support
 www-servers/uwsgi:yajl - Use dev-libs/yajl instead of dev-libs/jansson for parsing JSON configuration files (if USe=json is set)
 www-servers/uwsgi:yaml - Support yaml as a configuration file format.
@@ -8960,7 +8973,6 @@ x11-terms/aterm:background - Enable background image support via media-libs/liba
 x11-terms/aterm:xgetdefault - Enable resources via X instead of aterm small version
 x11-terms/gnome-terminal:gnome-shell - Integrate with gnome-base/gnome-shell search
 x11-terms/gnome-terminal:nautilus - Build gnome-base/nautilus extension
-x11-terms/guake:utempter - Include utmp management support via sys-libs/libutempter
 x11-terms/mlterm:brltty - Enable support for app-accessibility/brltty
 x11-terms/mlterm:fcitx - Enable support for app-i18n/fcitx
 x11-terms/mlterm:harfbuzz - Enable support for OpenType Layout (media-libs/harfbuzz)
@@ -9094,10 +9106,14 @@ x11-wm/xmonad-contrib:xft - Use Xft to render text
 x11-wm/xpra:client - Build client-side code
 x11-wm/xpra:clipboard - Enable clipboard support
 x11-wm/xpra:csc - Enable csc softscaler support
+x11-wm/xpra:gtk3 - Enable the GTK3 client
 x11-wm/xpra:html - Install the HTML5 client
 x11-wm/xpra:ibus - Use ibus input method via app-i18n/ibus
+x11-wm/xpra:mdns - Enable Multicast DNS via dev-libs/mdns
 x11-wm/xpra:oauth - Enable OAuth2 authentication in the server
+x11-wm/xpra:openh264 - Enable H.264 support using media-libs/openh264
 x11-wm/xpra:pinentry - Use app-crypt/pinentry for password entry
+x11-wm/xpra:qrcode - Enable generating QRCodes for server URL via media-gfx/qrencode
 x11-wm/xpra:server - Build server-side code
 x11-wm/xpra:trayicon - Enable system tray icon
 x11-wm/xpra:vpx - Enable vpx image format support
